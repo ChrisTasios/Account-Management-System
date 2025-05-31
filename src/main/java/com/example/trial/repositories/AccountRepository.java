@@ -20,4 +20,11 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
            "SUM(CASE WHEN type = 'WITHDRAWAL' THEN amount ELSE 0 END) AS net_balance " +
            "FROM transactions WHERE account_id IN (SELECT id FROM accounts WHERE beneficiary_id = ?1) GROUP BY account_id", nativeQuery = true)
     List<Object[]> findBeneficiaryBalance(final Long id);
+
+   @Query(value = "SELECT  account_id, MAX(amount) from transactions " +
+           "WHERE type = 'WITHDRAWAL' " +
+           "AND date >= date_trunc('month', current_date - interval '1' year) " +
+           "AND account_id IN (SELECT id FROM accounts WHERE beneficiary_id = ?1) " +
+           "GROUP BY account_id", nativeQuery = true)
+    List<Object[]> findBeneficiaryTopMonhtlyWithdraw(final Long id);
 }

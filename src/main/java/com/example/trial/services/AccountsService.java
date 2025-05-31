@@ -27,4 +27,10 @@ public class AccountsService {
                 .map(result -> new AccountDTO((Long) result[0], id,  (Double) result[1]))
                 .collect(Collectors.toList());
     }
+
+    public List<AccountDTO> getMaxMonthlyWithdrawal(Long id) {
+        return accountRepository.findBeneficiaryTopMonhtlyWithdraw(id).stream()
+                .map(result -> new AccountDTO((Long) result[0], id,  (Double) result[1]))
+                .collect(Collectors.toList());
+    }
 }

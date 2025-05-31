@@ -67,4 +67,9 @@ public class TrialApi {
     public ResponseEntity<List<AccountDTO>> getBeneficiaryBalance(@PathVariable final Long id) {
         return ResponseEntity.ok(accountsService.getAccountsBalance(id));
     }
+
+    @GetMapping("/beneficiaries/{id}/withdrawal/montly")
+    public ResponseEntity<List<AccountDTO>> getBeneficiaryMaxWithdrawalMontly(@PathVariable final Long id) {
+        return ResponseEntity.ok(accountsService.getMaxMonthlyWithdrawal(id));
+    }
 }
